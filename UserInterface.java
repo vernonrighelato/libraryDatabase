@@ -9,23 +9,27 @@ public class UserInterface {
 		this.db = db;
 	}
 	
+	enum Type {
+		BOOK, FILM, MEMBER;
+	}	
+	
 	public void run(){
 		Scanner inputInt = new Scanner(System.in);		
-		System.out.println("Welcom to the library database");
+		System.out.println("Welcome to the library database");
 		
 		while(running){
 			System.out.println("select an option \n 1: add a book \n 2: Add a film \n "
 					+ "3: Add a member \n 4: print resources \n 5: print members \n 6: quit the program");
 			int selection = inputInt.nextInt();
 			switch(selection){
-			case 1:
-				addBook();	
+			case 1:			
+				addToDatabase(Type.BOOK);
 				break;	
 			case 2:
-				addFilm();	
+				addToDatabase(Type.FILM);
 				break;		
 			case 3:
-				addMember();
+				addToDatabase(Type.MEMBER);
 				break;
 			case 4:
 				db.printResources();
@@ -42,31 +46,34 @@ public class UserInterface {
 				System.out.println("Invalid option");					
 			}			
 		}		
-	}
-	private void addBook(){		
-		Scanner inputString = new Scanner(System.in);
-		String format = "Book";
-		System.out.println("Enter book title");
-		String bookTitle = inputString.nextLine();
-		System.out.println("Enter author");
-		String author = inputString.nextLine();
-		db.addResource(new Book(format, bookTitle, author));		
-	}
-	private void addFilm(){		
-		Scanner inputString = new Scanner(System.in);
-		String format ="Film";
-		System.out.println("Enter film title");
-		String filmTitle = inputString.nextLine();
-		System.out.println("Enter director");
-		String director = inputString.nextLine();
-		db.addResource(new Film(format, filmTitle, director));		
-	}
-	private void addMember(){
-		Scanner inputString = new Scanner(System.in);
-		System.out.println("Enter member name");
-		String memberName = inputString.nextLine();
-		System.out.println("Enter member id");
-		String memberId = inputString.nextLine();
-		db.addMember(new Member(memberName, memberId));		
+	}	
+	private void addToDatabase(Type t){
+		Scanner input = new Scanner(System.in);
+		String theName;		
+		String format;
+		switch(t){
+		case BOOK:
+			format = "book";
+			System.out.println("Enter book title");
+			theName = input.nextLine();
+			System.out.println("Enter author");
+			String author = input.nextLine();
+			db.addResource(new Book(format, theName, author));
+			break;
+		case FILM:
+			format = "film";
+			System.out.println("Enter film title");
+			theName = input.nextLine();
+			System.out.println("Enter director");
+			String director = input.nextLine();
+			db.addResource(new Book(format, theName, director));
+			break;
+		case MEMBER:
+			System.out.println("Enter member name");
+			theName = input.nextLine();
+			System.out.println("Enter member ID");
+			String id = input.nextLine();
+			db.addMember(new Member(theName, id));
+		}
 	}
 }
