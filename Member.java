@@ -1,5 +1,5 @@
 
-public class Member {
+public class Member extends Observer {
 	
 	private String memberName;
 	private String id;
@@ -12,6 +12,6 @@ public class Member {
 	}
 
 	public String getDetails(){
-		return memberName + id;
+		return memberName + id + super.getUpdate();
 	}	
 }
